@@ -1,7 +1,7 @@
 """
 Protein Sequencing Project
-Name:
-Roll Number:
+Name: G.V.S Sai Charan
+Roll Number: 2021501008
 """
 
 import hw6_protein_tests as test
@@ -17,7 +17,10 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    read = open(filename)
+    text = read.read().splitlines()
+    str ="".join(text)
+    return str
 
 
 '''
@@ -27,7 +30,22 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
+    d=dna[startIndex:]
+    list=[]
+    string=""
+    replaced=["UAG", "UAA","UGA"]
+    for i in range(len(d)):
+        if len(string)!=3:
+            string+=d[i]
+        if len(string)==3:
+            x= string.replace("T","U")
+            if x in replaced:
+                list.append(x)
+                return list
+            else:
+                list.append(x)
+                string=""
+    return list
 
 
 '''
@@ -38,7 +56,13 @@ Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
     import json
-    return
+    f = open(filename)
+    read = json.load(f)
+    Dict={}
+    for x,y in read.items():
+        for i in y:
+            Dict[i.replace('T','U')]=x
+    return Dict
 
 
 '''
@@ -48,7 +72,13 @@ Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
 def generateProtein(codons, codonD):
-    return
+    lst=[]
+    if codons[0] =="AUG":
+        lst.append("Start")
+    for i in range(1,len(codons)):
+        if codons[i] in codonD.keys():
+            lst.append(codonD[codons[i]])
+    return lst
 
 
 '''
@@ -58,7 +88,21 @@ Parameters: str ; str
 Returns: 2D list of strs
 '''
 def synthesizeProteins(dnaFilename, codonFilename):
-    return
+    file = readFile(dnaFilename) 
+    Dict = makeCodonDictionary(codonFilename) 
+    i=0
+    count=0
+    temp=[]
+    while i < len(file):
+        if file[i:i+3] == "ATG":
+            dna= dnaToRna(file,i) 
+            protien = generateProtein(dna, Dict) 
+            temp.append(protien)
+            i = i+3*len(dna)
+        else:
+            i+=1
+            count+=1
+    return temp
 
 
 def runWeek1():
@@ -186,10 +230,11 @@ def runFullProgram():
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    runWeek1()
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    # test.week1Tests()
+    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    # runWeek1()
+    test.testSynthesizeProteins()
 
     ## Uncomment these for Week 2 ##
     """
