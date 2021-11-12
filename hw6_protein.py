@@ -233,8 +233,17 @@ makeAminoAcidLabels(proteinList1, proteinList2)
 Parameters: 2D list of strs ; 2D list of strs
 Returns: list of strs
 '''
+from itertools import zip_longest
 def makeAminoAcidLabels(proteinList1, proteinList2):
-    return
+    combineProteins_list1,combineProteins_list2=combineProteins(proteinList1),combineProteins(proteinList2)
+    final_list=[]
+    for x,y in zip_longest(combineProteins_list1,combineProteins_list2):
+        if  x not in final_list and x!=None:
+            final_list.append(x)
+        if y not in final_list and y!=None:
+            final_list.append(y)
+    return sorted(final_list)
+
 
 
 '''
@@ -244,6 +253,7 @@ Parameters: list of strs ; 2D list of strs
 Returns: list of floats
 '''
 def setupChartData(labels, proteinList):
+    
     return
 
 
@@ -290,16 +300,16 @@ if __name__ == "__main__":
 
     ## Uncomment these for Week 2 ##
     
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
-    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    runWeek2()
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    # runWeek2()
     
 
     ## Uncomment these for Week 3 ##
-    """
+    
     print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
     test.week3Tests()
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     runFullProgram()
-    """
+    
