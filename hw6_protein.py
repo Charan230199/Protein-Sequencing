@@ -270,8 +270,18 @@ createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None)
 Parameters: list of strs ; list of floats ; str ; list of floats ; str ; [optional] list of strs
 Returns: None
 '''
+import numpy as np
 def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
     import matplotlib.pyplot as plt
+    w = 0.4
+    xValues = np.arange(len(xLabels))
+    yValues = np.arange(-w,len(xLabels)-1,1)
+    plt.bar(yValues, freqList1, width=w, label= label1, edgecolor = edgeList)
+    plt.bar(xValues, freqList2, width= w, label= label2, edgecolor = edgeList)
+    plt.xticks(ticks=list(range(len(xLabels))), labels=xLabels, rotation = "horizontal")
+    plt.legend()
+    plt.title("Comparison Of Frequencies")
+    plt.show()
     return
 
 
