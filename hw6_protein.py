@@ -292,7 +292,17 @@ Parameters: list of strs ; 2D list of values
 Returns: list of strs
 '''
 def makeEdgeList(labels, biggestDiffs):
-    return
+    edgelist = []
+    word = []
+    for i in range(len(biggestDiffs)):
+        word.append(biggestDiffs[i][0])
+    for i in range(len(labels)):
+        if labels[i] in word:
+            edgelist.append('black')
+        else:
+            edgelist.append('white')
+    
+    return edgelist
 
 
 '''
