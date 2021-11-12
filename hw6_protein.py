@@ -253,8 +253,15 @@ Parameters: list of strs ; 2D list of strs
 Returns: list of floats
 '''
 def setupChartData(labels, proteinList):
-    
-    return
+    list = combineProteins(proteinList)
+    Dict = aminoAcidDictionary(list)
+    freq = []
+    for i in labels:
+        if i in Dict:
+            freq.append(Dict[i] / len(list))
+        else:
+            freq.append(0)
+    return freq
 
 
 '''
